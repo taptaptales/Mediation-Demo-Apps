@@ -25,11 +25,11 @@ import com.unity3d.mediation.interstitial.LevelPlayInterstitialAd
 private const val TAG = "DemoActivity"
 
 // Replace with your app key as available in the LevelPlay dashboard
-private const val APP_KEY = "85460dcd"
+private const val APP_KEY = "12124786d"
 
 // Replace with your ad unit ids as available in the LevelPlay dashboard
-private const val INTERSTITIAL_AD_UNIT_ID = "aeyqi3vqlv6o8sh9"
-private const val BANNER_AD_UNIT_ID = "thnfvcsog13bhn08"
+private const val INTERSTITIAL_AD_UNIT_ID = "s9mc7vi0pjuxrpkf"
+private const val BANNER_AD_UNIT_ID = "78lcd3i080cpwsag"
 
 class DemoActivity : Activity(), DemoActivityListener {
 

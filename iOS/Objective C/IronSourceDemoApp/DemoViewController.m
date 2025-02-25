@@ -19,7 +19,7 @@
 #define kInterstitialAdUnitId @"wmgt0712uuux8ju4"
 #define kBannerAdUnitId @"iep3rxsyp9na3rw8"
 
-@interface DemoViewController ()
+@interface DemoViewController () <LPMBannerAdViewDelegate>
 
 @property (nonatomic, strong) DemoRewardedVideoAdDelegate         *rewardedVideoDelegate;
 @property (nonatomic, strong) ISPlacementInfo                     *rewardedVideoPlacementInfo;
@@ -242,6 +242,61 @@
         self.rewardedVideoPlacementInfo = nil;
     }
 }
+
+- (void)createBannerAd2 {
+    // Create the banner view and set the ad unit id
+    self.bannerAd = [[LPMBannerAdView alloc] initWithAdUnitId:@"adUnitId"];
+    
+    // Set the placement name (optional)
+    [self.bannerAd setPlacementName:@"PlacementName"];
+    
+    // Set the ad size
+    LPMAdSize *bannerSize = [self setBannerSize];
+    
+    // Required when using adaptive ad size
+    if (bannerSize == nil) {
+        return;
+     }
+    
+    [self.bannerAd setAdSize:bannerSize];
+    
+    // Set the delegate implementation
+    [self.bannerAd setDelegate:self];
+    
+    // Add the banner view to the view hierarchy with the proper constraints
+    [self addBannerViewWithSize:bannerSize];
+}
+
+- (LPMAdSize *)setBannerSize {
+    // 1. Recommended - Adaptive ad size that adjusts to the screen width
+    LPMAdSize *bannerSize = [LPMAdSize createAdaptiveAdSize];
+
+    // 2. Adaptive ad size using fixed width ad size
+    // self.bannerSize = [LPMAdSize createAdaptiveAdSizeWithWidth:400];
+
+    // 3. Specific banner size - BANNER, LARGE, MEDIUM_RECTANGLE
+    // self.bannerSize = [LPMAdSize mediumRectangleSize];
+    
+    // To get actual banner layout size (either custom/standard size or adaptive)
+    NSInteger height = self.bannerSize.height;
+    NSInteger width = self.bannerSize.width;
+    
+    return bannerSize;
+}
+
+- (void)addBannerViewWithSize:(LPMAdSize *)bannerSize {
+    self.bannerAd.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    // Add the banner view to the view hierarchy
+    [self.view addSubview:self.bannerAd];
+    [NSLayoutConstraint activateConstraints:@[
+        [self.bannerAd.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+        [self.bannerAd.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [self.bannerAd.widthAnchor constraintEqualToConstant:bannerSize.width],
+        [self.bannerAd.heightAnchor constraintEqualToConstant:bannerSize.height]
+    ]];
+}
+
 
 #pragma mark Utility methods
 
