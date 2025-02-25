@@ -41,6 +41,9 @@ android {
 // Include IronSource maven repositories
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 
@@ -56,4 +59,8 @@ dependencies {
     // Add AdNetworks adapters dependencies - every adapter contains also the ad network SDK.
     // Make sure you also configure the AdNetworks in your dashboard.
     // For more information: http://developers.ironsrc.com/ironsource-mobile/android/mediation-networks-android/
+    implementation ('com.amazon.android:aps-sdk:10.0.0+')
+//    implementation ('com.unity3d.ads-mediation:aps-adapter:4.3.16')
+    implementation ("com.iabtcf:iabtcf-decoder:2.0.10")
+    implementation(name: 'apsadapter-debug', ext: 'aar')
 }
